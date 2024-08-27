@@ -1,4 +1,4 @@
-# finAnalysis
+# Machine Learning Market Analysis
 
 Goal is to implement a Neural Network on financial data to predict market movement of a stock based solely on quantitative values. Markets are complex adaptive systems, generating alpha is obviously not as easy as using a simple ML implementation with a couple financial features. Want to learn more about Neural Net implementation and how to effectively select features and target variables.
 
