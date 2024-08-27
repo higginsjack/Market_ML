@@ -1,20 +1,18 @@
 # finAnalysis
 
-Goal is to implement a Python Keras/TensorFlow Neural Network on financial data to **attempt** to accurately predict market movement of a stock. Want to learn more about Neural Net implementation and how to effectively select features and target variables.
+Goal is to implement a Neural Network on financial data to predict market movement of a stock based solely on quantitative values. Markets are complex adaptive systems, generating alpha is obviously not as easy as using a simple ML implementation with a couple financial features. Want to learn more about Neural Net implementation and how to effectively select features and target variables.
 
-Part 0 contains my notes on NNs, Keras, the API I used to get basic stock data, and the quantitative predictors I calculated for that data. Parts 1 and 2 are objectives I have set but are loose as the project is more an exploration than a concrete plan.
+Part 0 of the readme is my notes on Neural Networks and other parts of the project. Parts 1 and 2 are objectives I have set but are loose as the project is more an exploration than a concrete plan.
 
 ## Part 0: Exploratory
 
 ### Data
-Using Finazon to grab histoical stock data. I'm on the cheapest plan which allows 5 calls per minute, no daily limit. We can run in background with timer.
-
-If I want past 5 years of data and 1 call is 1 day...
+Using Finazon to grab histoical stock data. I'm on the cheapest plan which allows 5 calls per minute, no daily limit. I can run in background where I pull minute by minute data for each day within a time period.
 
 ### Recurrent Neural Network
-A neural network is typically used for stock prediction. This has historically been a black box for me because Python packages are so easy to implement. This is a bit of a tangent from the overall goal of the project but here are notes from my time reading about neural networks and specifically Tensorflow/Keras implementation. 
+Notes prior to implementation. A lot of the math is not really neccessary to know but wanted to better understand deep learning.
 #### Sequential Model
-* Linear stack of layers where each layer has one input tensor and one output Tensor
+* Linear stack of layers where each layer has one input tensor and one output tensor
 * This architecture is suitable for sequence-to-value tasks, such as predicting future stock prices based on historical data
 
 #### LSTM
@@ -113,11 +111,11 @@ Looking specifically at .fit() when training neural network model. Function iter
 3. After all epochs are completed, the final trained model is created
 
 ### Quantitative Analysis
-I want to really look at momentum and high frequency trades because it is less dependent on actual long term market movements (in my head, I have 0 knowledge of finance). In the period of a day, there is less likely to be qualitative factors at play than a year. 
+I want to really look at momentum and high frequency trades because it is less dependent on actual long term market movements which are harder to quantify. In the period of a day, there is less likely to be qualitative factors at play than a year. 
 
 I scrolled through Investopedia to find factors, they are listed below to keep a record. Math behind these is a lot simpler than the math behind the RNN so I left it out, it's implemented in code.
 
-Very skeptical of a lot of these but I'll include everything
+Markets are complex adaptive systems. Using volume and other traditional factors as inputs will probably result in low accuracy models but it's a good starting point. 
 
 #### Relative Strength Index
 * Purpose: Signals bullish and bearish momentum
@@ -146,16 +144,8 @@ Very skeptical of a lot of these but I'll include everything
 * Purpose: Technical indicator that generates overbought or oversold signals using prices and volume
 * Meaning: Looking at previous 14 periods, for each period mark whether the typical price was higher or lower than the prior period 
 
-### Factors we want to look at or could analyze:
-* Where price is trending (rate of gain over a certain amount of time)
-* Financial news networks (need to transform string data into numerical)
-* Environmental factors (for example oil prices may fluctuate with temperature, food prices would fluctuate with droughts, etc.)
-* Governmental policy (if we see a jump in EV manufacturing stock price when the US passes subsidies, this pattern could be extended to another policy)
-* Figure noteriety (if there is a jump in Mark Zuckerberg's google search numbers, there could be a corresponding jump in META)
-* Elliot Wave Theory (more to look into!)
-
-## Part 1
-* Get data for 10-12 stocks
+## Part 1: RNN Implementation
+* Get data for stocks for training
 * Implement neural network
 * Find most effective/interesting method of prediction
     * Local min/max
@@ -163,10 +153,10 @@ Very skeptical of a lot of these but I'll include everything
     * Maximize profit and make it buy/sell
 * Feature engineering: analyze strength of different features
 
-## Part 2
-* Testing 3 different models in a real market scenario
+## Part 2: Showcasing
 * Web page
     * Django / React stack?
+    * AWS
 * Showcase findings
 
 ## References
