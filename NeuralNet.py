@@ -8,6 +8,9 @@ from keras.layers import Dense, LSTM
 from keras.optimizers import Adam
 import matplotlib.pyplot as plt
 
+# TODO: Include notes section with model saving where everything regarding what created the model is stored
+    # Epochs, layers, data trained on, optimizer, activation function, tickers, neurons, train time, graphs, accuracy, etc.
+
 class RNN:
     def __init__(self, input_shape, output_shape, seq_length=10):
         """
@@ -51,41 +54,25 @@ class RNN:
         print(f'Mean Squared Error: {mse}')
         return predictions
 
-    def plot(self, y_test, predictions):
-        plt.figure(figsize=(14, 5))
-        plt.plot(y_test, color='blue', label='Actual Prices')
-        plt.plot(predictions, color='red', label='Predicted Prices')
-        plt.title('Stock Price Prediction')
-        plt.xlabel('Time')
-        plt.ylabel('Price')
-        plt.legend()
-        plt.show()
-
-# Example usage
 if __name__ == "__main__":
-    # Load the data
+    # Get Data and features
     file_path = 'data/AAPL/AAPL_data.csv'
     data = pd.read_csv(file_path)
-
-    # Select features and target
     features = ['Close', 'Volume', 'Open', 'High', 'Low']
     target = 'Close'
 
     if not all(column in data.columns for column in features + [target]):
         print(f"Error: The CSV file must contain the following columns: {', '.join(features + [target])}")
 
-    # Drop rows with NaN values created by technical indicator calculations
+
     data.dropna(inplace=True)
 
-    # Scale the features
     scaler = MinMaxScaler()
     scaled_features = scaler.fit_transform(data[features])
 
-    # Prepare data for LSTM
     seq_length = 5
     X, y = RNN.create_sequences(scaled_features, data[target].values, seq_length=seq_length)
 
-    # Split the data into training and test sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle=False)
     X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], len(features)))
     X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], len(features)))
